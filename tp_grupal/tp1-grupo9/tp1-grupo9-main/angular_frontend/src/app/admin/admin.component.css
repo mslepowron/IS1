@@ -1,0 +1,7 @@
+/* Personalización de botones */
+.custom-btn {
+    margin: 0 5px; /* Margen horizontal entre botones */
+    padding: 5px 10px; /* Tamaño reducido del botón */
+    font-size: 0.85rem; /* Tamaño de texto levemente más pequeño */
+    border-radius: 4px; /* Bordes redondeados */
+}

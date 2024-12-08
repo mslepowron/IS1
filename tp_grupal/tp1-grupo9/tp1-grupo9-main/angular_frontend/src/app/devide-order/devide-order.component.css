@@ -1,0 +1,94 @@
+/* Highlight target column when dragging over */
+.column {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    width: 45%;
+    min-height: 200px;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease;
+  }
+  
+  .column:hover {
+    background-color: #e6f7ff; /* Light blue highlight */
+  }
+  
+  .cart-item:active {
+    cursor: grabbing;
+  }
+  
+ /* Contenedor de las subordenes */
+.suborders-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  box-sizing: border-box;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+}
+
+/* Estilo de cada suborden con tamaño inicial */
+.suborder-box {
+  position: relative;
+  width: 250px; /* Ajustamos el tamaño inicial */
+  min-height: 250px; /* Asegura que cada suborden tenga una altura mínima para que se vean bien */
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow: hidden; /* Para evitar el desbordamiento de contenido */
+}
+
+/* Hacer que el contenido dentro de cada suborden crezca según el contenido */
+.suborder-box .cart-item {
+  margin-bottom: 5px;
+}
+
+/* Estilo del botón de eliminar */
+.delete-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+/* Estilo de los items dentro de cada suborden */
+.cart-item {
+  border: 1px solid #ddd;
+  padding: 5px;
+  margin-bottom: 5px;
+  background-color: #fff;
+  border-radius: 5px;
+}
+
+/* Botones de agregar y submit */
+.buttons-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 15px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Ajuste de la altura del contenedor principal */
+.main-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: flex-start;
+}

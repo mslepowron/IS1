@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "@angular/cdk": "^19.0.0",
+    "@angular/cli": "^19.0.1",
+    "bootstrap": "^5.3.3"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^19.0.1",
+    "typescript": "~5.6"
+  }
+}

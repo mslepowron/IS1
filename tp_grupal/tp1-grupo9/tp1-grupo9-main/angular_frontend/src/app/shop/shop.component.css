@@ -1,0 +1,98 @@
+/* diseño del shop */
+.card .back-button.nav-button {
+  font-size: 14px;
+  padding: 10px 13px;
+  background-color: #808080;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.card .back-button.nav-button:hover {
+  background-color: #555555;
+}
+
+.card .back-button {
+  font-size: 14px;
+  padding: 8px 12px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap; /* Asegura que las cards se ajusten automáticamente */
+  gap: 2rem; /* Espacio entre las cards */
+  justify-content: flex-start;
+}
+
+.card .card-front,
+.card .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.card .card-back {
+  transform: rotateY(180deg);
+}
+.card.flipped {
+  transform: rotateY(180deg);
+}
+
+.card {
+  width: 100%;
+  max-width: 350px;
+  height: 200px;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+  cursor: pointer;
+  border: none;
+  position: relative;
+  background-color: white;
+}
+
+.card-container {
+  perspective: 1000px;
+}
+
+.card .card-front .top-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.card-body {
+  border: none;
+  padding: 20px;
+}
+
+.product {
+  flex: 1 1 calc(33.333% - 2rem); /* Asegura que cada card ocupe un tercio del ancho */
+  max-width: calc(33.333% - 2rem); /* Máximo ancho para tres items por fila */
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+
+.row:has(.product:nth-child(3)) {
+  justify-content: space-between;
+}
+
+.row:has(.product:nth-last-child(1):nth-child(-n+2)) {
+  justify-content: flex-start;
+}
+
+.card .cart-btn-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* Espacio entre los botones */
+}

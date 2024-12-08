@@ -1,0 +1,32 @@
+.form-control {
+    background-color: #f0f0f0;
+}
+
+.form-control:disabled {
+    background-color: #dcdcdc;
+    /* Fondo gris */
+    color: #6c757d;
+    /* Texto gris */
+    cursor: not-allowed;
+}
+
+/* Custom red color for the Cancel button */
+.btn-cancel {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-cancel:hover {
+    background-color: #c82333;
+    color: white;
+}
+
+.profile-picture-section {
+    margin-bottom: 20px;
+}
+
+/* Hide the options initially */
+.profile-picture-options {
+    display: none;
+}
+  

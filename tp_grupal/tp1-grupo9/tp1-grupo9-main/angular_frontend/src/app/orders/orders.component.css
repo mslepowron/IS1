@@ -1,0 +1,109 @@
+/* Estilo para el mensaje cuando no hay órdenes */
+.no-orders-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centra el cartel */
+    background-color: #fff; /* Fondo blanco */
+    color: #333; /* Texto oscuro */
+    padding: 20px 30px; /* Espaciado generoso */
+    border: 1px solid #ddd; /* Borde suave */
+    border-radius: 12px; /* Bordes redondeados */
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    font-size: 1.1rem; /* Tamaño de fuente moderado */
+    text-align: center; /* Centra el texto */
+    z-index: 9999; /* Asegura que el mensaje esté por encima de otros elementos */
+    animation: fadeIn 0.5s ease-in-out; /* Animación de entrada */
+  }
+  
+  /* Animación para hacer que el mensaje aparezca con suavidad */
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.8);
+    }
+    100% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+  
+  .no-orders-message p {
+    margin: 0;
+    font-weight: 500; /* Peso de fuente moderado */
+  }
+
+
+  /* Centra el contenedor de la tabla y agrega márgenes */
+.table-container {
+  max-width: 1200px; /* Máximo ancho para la tabla */
+  margin: 20px auto; /* Centra la tabla horizontalmente y agrega márgenes */
+  padding: 20px;
+  border-radius: 10px; /* Bordes redondeados */
+  background-color: #f8f9fa; /* Fondo claro */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para darle profundidad */
+}
+
+/* Estilo para el título */
+h2 {
+  text-align: center; /* Centra el título */
+  margin-bottom: 20px; /* Espacio debajo del título */
+  color: #333; /* Color de texto */
+  font-size: 2rem; /* Tamaño de fuente */
+}
+
+/* Ajuste de tabla */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Estilo de las celdas de la tabla */
+th, td {
+  padding: 12px 15px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* Estilo para las cabeceras de la tabla */
+th {
+  background-color: #007bff; /* Color de fondo para las cabeceras */
+  color: white; /* Color del texto */
+}
+
+/* Estilo de las filas de la tabla */
+tbody tr:nth-child(odd) {
+  background-color: #f2f2f2; /* Fondo gris para filas impares */
+}
+
+tbody tr:nth-child(even) {
+  background-color: #ffffff; /* Fondo blanco para filas pares */
+}
+
+/* Botón de cancelar */
+.btn-danger {
+  background-color: #dc3545; /* Fondo rojo para el botón */
+  color: white; /* Color blanco para el texto */
+  border: none;
+  border-radius: 5px; /* Bordes redondeados */
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.btn-danger:hover {
+  background-color: #c82333; /* Efecto al pasar el mouse sobre el botón */
+  transition: background-color 0.3s ease;
+}
+
+/* Mensaje si no hay pedidos */
+.no-orders-message {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #6c757d; /* Color gris para el mensaje */
+}
+
+  
+  

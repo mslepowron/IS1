@@ -1,0 +1,819 @@
+{
+	"info": {
+		"_postman_id": "43f72daf-fc6b-4ee1-8629-0cea19c5ea4a",
+		"name": "TP-IS1",
+		"description": "This project is a robust and extensible **Product Ordering System** designed to handle dynamic requirements and ensure flexibility in managing users, products, and orders. The system supports key functionalities such as user registration and authentication, dynamic product attributes, configurable order rules, and order management workflows. It is built to cater to both end-users and administrators, providing tailored interfaces and capabilities.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10695342",
+		"_collection_link": "https://tp-is1-2c-2024.postman.co/workspace/TP-IS1-%2F%2F-2C-2024-Workspace~4878fbf6-b51b-492a-85bf-8704b61ac768/collection/40056626-43f72daf-fc6b-4ee1-8629-0cea19c5ea4a?action=share&source=collection_link&creator=10695342"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									"let responseData = pm.response.json();",
+									"pm.environment.set(\"authToken\", responseData.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"corqueda@fi.uba.ar\",\n    \"password\": \"123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						},
+						"description": "This endpoint authenticates a user by validating their email and password. Upon successful authentication, the server generates a session token or JWT (JSON Web Token) for the user. This token can be used for subsequent requests to access protected resources."
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									"let responseData = pm.response.json();",
+									"pm.environment.set(\"authToken\", responseData.password);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"carlosorqueda@gmail.com\",\n    \"name\": \"Carlos\",\n    \"surname\": \"Orqueda\",\n    \"password\": \"123\",\n    \"profilePicture\": \"avatar1\",\n    \"gender\": \"\",\n    \"age\": \"\",\n    \"address\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/signup",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						},
+						"description": "This endpoint allows new users to create an account by providing their basic information. The server validates the input and creates a new user record. This is the starting point for users to access the system."
+					},
+					"response": []
+				}
+			],
+			"description": "The **Auth API** handles user authentication and registration, forming the foundation of the system's security and user management. It provides endpoints for creating new user accounts and authenticating existing users."
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "User by email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9BRE1JTiIsInN1YiI6ImNvcnF1ZWRhQGZpLnViYS5hciIsImlhdCI6MTczMzA3ODk0NiwiZXhwIjoxNzMzMDgyNTQ2fQ.fQIb8rJGO2z_ZjRsw5hy9kHITH8Hpkxj3ByUUNV6hJ4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								""
+							]
+						},
+						"description": "This endpoint retrieves information about a specific user based on their email address. The email is included as a path parameter in the request."
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful DELETE request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 202, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9BRE1JTiIsInN1YiI6ImNvcnF1ZWRhQGZpLnViYS5hciIsImlhdCI6MTczMzA3ODk0NiwiZXhwIjoxNzMzMDgyNTQ2fQ.fQIb8rJGO2z_ZjRsw5hy9kHITH8Hpkxj3ByUUNV6hJ4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"E\",\r\n    \"surname\": \"E\",\r\n    \"profilePicture\": \"R\",\r\n    \"gender\": \"E\",\r\n    \"age\": \"E\",\r\n    \"address\": \"E\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/users/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								""
+							]
+						},
+						"description": "This endpoint allows partial updates to a user's information. The user is identified by their email address, which is included as a path parameter in the URL. You can update specific fields, such as the user's profile picture, age, or other details. Only the fields provided in the request body will be updated.\n\n**Path Parameter:**\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| `email` | `string` | Yes | The email address of the user to update. |"
+					},
+					"response": []
+				}
+			],
+			"description": "The **Users API** is designed to manage user information efficiently and securely. It provides endpoints to retrieve user details and update specific fields of a user's profile.\n\n### **Core Functionality**\n\n1. **Retrieve User Information:**  \n    The API allows clients to fetch detailed information about a user based on their unique email address. This is useful for displaying user profiles, accessing contact details, or validating user accounts.\n    \n2. **Update User Information:**  \n    Users can update specific fields in their profile, such as their profile picture, age, or other optional attributes. The `PATCH` method ensures that only the provided fields are updated, maintaining the existing data for other fields."
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Create Product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInN1YiI6ImNhcmxvc29ycXVlZGFAZ21haWwuY29tIiwiaWF0IjoxNzMzMDc5MDY4LCJleHAiOjE3MzMwODI2Njh9.G3r0rxM2gKXA2EZ4-UqGO_CJpj6g8y32CoNZ8az4wvA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Laptop\",\r\n    \"description\": \"High-performance laptop for gaming\",\r\n    \"stock\": 50,\r\n    \"attributes\": {\r\n        \"peso(kg)\": 30,\r\n        \"ada\": \"dsfsdfdsf\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/products",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products"
+							]
+						},
+						"description": "This endpoint is used to add a new product to the system. Each product has a name, description, stock quantity, and a dynamic set of attributes. The attributes are a flexible key-value pair (`Map`) that can store additional product properties like weight, size, color, or any other relevant detail."
+					},
+					"response": []
+				},
+				{
+					"name": "Products",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInN1YiI6ImNhcmxvc29ycXVlZGFAZ21haWwuY29tIiwiaWF0IjoxNzMzMDc5MDY4LCJleHAiOjE3MzMwODI2Njh9.G3r0rxM2gKXA2EZ4-UqGO_CJpj6g8y32CoNZ8az4wvA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								""
+							]
+						},
+						"description": "This endpoint retrieves a list of all products in the database. It allows clients to view product details, including their name, description, stock, and dynamic attributes. Use this endpoint to fetch the full product catalog or to display product information in your application."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful DELETE request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 202, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInN1YiI6ImNhcmxvc29ycXVlZGFAZ21haWwuY29tIiwiaWF0IjoxNzMzMDc5NDYzLCJleHAiOjE3MzMwODMwNjN9.Db7vbl0JjMd0gezv6CawaNdsQGthSxkG1lx4CylXkeQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"ddd\",\r\n    \"stock\": 25,\r\n    \"attributes\": {\r\n        \"peso(kg)\": \"50\",\r\n        \"dasdas\": \"fsadas\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/products/?id=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								""
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						},
+						"description": "This endpoint allows you to update the value of the attribute of an existing product, such as its weight or its type. The product is identified by its unique ID, which is included in the URL path. This endpoint is designed for partial updates, meaning you only need to provide the fields you want to change."
+					},
+					"response": []
+				}
+			],
+			"description": "The **Products API** provides a flexible and dynamic way to manage products in the system. It allows for creating, retrieving, and updating products with extensible attributes to accommodate evolving business needs"
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Orders by email",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInN1YiI6ImNhcmxvc29ycXVlZGFAZ21haWwuY29tIiwiaWF0IjoxNzMzMDc5NDYzLCJleHAiOjE3MzMwODMwNjN9.Db7vbl0JjMd0gezv6CawaNdsQGthSxkG1lx4CylXkeQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/orders/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders",
+								""
+							]
+						},
+						"description": "This endpoint retrieves a list of orders associated with a specific email address. It allows clients to fetch all orders placed by a particular user. The email address must be included in the request body as a JSON payload. This endpoint is useful for displaying order history or tracking user-specific purchases."
+					},
+					"response": []
+				},
+				{
+					"name": "Orders by state",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInN1YiI6ImNhcmxvc29ycXVlZGFAZ21haWwuY29tIiwiaWF0IjoxNzMzMDc5NDYzLCJleHAiOjE3MzMwODMwNjN9.Db7vbl0JjMd0gezv6CawaNdsQGthSxkG1lx4CylXkeQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/orders/state/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders",
+								"state",
+								""
+							]
+						},
+						"description": "This endpoint retrieves a list of orders filtered by their state. The state must be provided in the request body as a JSON payload. This is useful for tracking orders based on their current status."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9BRE1JTiIsInN1YiI6ImNvcnF1ZWRhQGZpLnViYS5hciIsImlhdCI6MTczMzA4MjI1OCwiZXhwIjoxNzMzMDg1ODU4fQ.aSB6MFcTD9rGLOZmevz_6S4W1NKzFUTIgh35kl9gq94",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ids\": [\r\n        1\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/orders",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						},
+						"description": "This endpoint is used to create a new order in the ecommerce system. The request body must include the details of the products being ordered and the email address of the user placing the order. The server will process the order, validate stock availability, and create the order record."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful DELETE request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 202, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9BRE1JTiIsInN1YiI6ImNvcnF1ZWRhQGZpLnViYS5hciIsImlhdCI6MTczMzA4MjI1OCwiZXhwIjoxNzMzMDg1ODU4fQ.aSB6MFcTD9rGLOZmevz_6S4W1NKzFUTIgh35kl9gq94",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"state\": \"SENT\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/orders/order/?id=14",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders",
+								"order",
+								""
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "14"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "The **Orders API** is the central component for managing customer orders. It provides endpoints to create, retrieve, and update orders. This API supports order tracking."
+		},
+		{
+			"name": "Rules",
+			"item": [
+				{
+					"name": "Create Rule",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInN1YiI6ImNvcnF1ZWRhQGZpLnViYS5hciIsImlhdCI6MTczMjgxODc5OSwiZXhwIjoxNzMyODIyMzk5fQ.R3ZGdPN9AGXOUnXeGe8FodP-fx6pF2ZUUkkctSUf9-M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"attribute\": \"peso(kg)\",\n        \"operator\": \"<=\",\n        \"values\": [20],\n        \"scope\": \"ORDER\"\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/rules",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"rules"
+							]
+						},
+						"description": "This endpoint allows you to create a new dynamic rule in the ecommerce system. Rules define specific conditions to manage business logic, such as restrictions or validations based on order attributes. The rule specifies the attribute to evaluate, the operator to compare values, the comparison values, and the scope of application.\n\nTo create a rule, you need to send a `POST` request to `/api/rules` with a valid JSON body that includes the required fields.\n\n**Steps to Create a Rule:**\n\n1. **Prepare the request:**  \n    Ensure that the request is made to `/api/rules` with the HTTP method `POST`.\n    \n2. **Include the required fields in the request body:**\n    \n    - `attribute`: Represents the exact name of the attribute to be compared by the rule (e.g., \"peso(kg)\").\n        \n    - `operator`: Defines the type of comparison to be performed by the rule (e.g., `<=`, `>=`, `=`).\n        \n    - `values`: Specifies the values to compare against, provided as an array. These can be strings, doubles, or integers depending on the attribute type.\n        \n    - `scope`: Indicates the scope where the rule applies. Options include `ORDER` (rule applies to the entire order) or `ITEM` (rule applies to individual items)."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Rule",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInN1YiI6ImNvcnF1ZWRhQGZpLnViYS5hciIsImlhdCI6MTczMjU5MDYwMiwiZXhwIjoxNzMyNTk0MjAyfQ.cTwk7FrZn0o8WpmKk0Ddv4v23tARDWHBJJ8TtbFutoQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/rules/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"rules",
+								"1"
+							]
+						},
+						"description": "This endpoint allows you to perform a soft delete of an existing rule in the database. A soft delete marks the rule as inactive or deleted without permanently removing it from the database. This ensures the rule's data remains available for audit purposes or potential restoration.\n\nTo delete a rule, you need to send a `DELETE` request to `/api/rules/{id}`, where `{id}` is the unique identifier of the rule to be deleted."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Rules",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiYWRtaW4iLCJzdWIiOiJpcGFya0BmaS51YmEuYXIiLCJpYXQiOjE3MzI1MDM2MjcsImV4cCI6MTczMjUwNzIyN30.aTnwbQ4IgS33OXGyB7L7-Dyb-3gCOnDrBKgAbNBLxjA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"id\" : 3,\n        \"attribute\" : \"type\",\n        \"operator\" : \"MUTUAL_EXCLUSION\",\n        \"values\" : [ \"liquid\", \"gaseous\" ],\n        \"scope\" : \"ORDER\"\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/rules",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"rules"
+							]
+						},
+						"description": "This endpoint allows you to update an existing rule in the system. Updates can include changes to the rule's attribute, operator, values, or scope. The `id` field in the request body identifies the rule to be updated.\n\nTo update a rule, you need to send a `PUT` request to `/api/rules` with a valid JSON body containing the updated rule details.\n\n**Steps to Update a Rule:**\n\n1. **Prepare the request:**  \n    Ensure the request is made to `/api/rules` with the HTTP method `PUT`.\n    \n2. **Include the required fields in the request body:**\n    \n    - `id`: The unique identifier of the rule to be updated.\n        \n    - `attribute`: The exact name of the attribute to be evaluated by the rule.\n        \n    - `operator`: The type of comparison or operation to be performed by the rule.\n        \n    - `values`: The values to be used for evaluation, as an array. Can include either strings, or, doubles/integers.\n        \n    - `scope`: The scope of the rule. Use `ORDER` for rules applying to the entire order or `ITEM` for individual items."
+					},
+					"response": []
+				},
+				{
+					"name": "Get all active Rules",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInN1YiI6ImNvcnF1ZWRhQGZpLnViYS5hciIsImlhdCI6MTczMjgxODc5OSwiZXhwIjoxNzMyODIyMzk5fQ.R3ZGdPN9AGXOUnXeGe8FodP-fx6pF2ZUUkkctSUf9-M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/rules",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"rules"
+							]
+						},
+						"description": "This endpoint retrieves all active rules in the system. Active rules are defined as those that have not been soft deleted (i.e., their `deleted` attribute is not set to `true`). Use this endpoint to fetch the current set of rules available for application in the ecommerce system."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Quantities",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInN1YiI6ImlwYXJrQGZpLnViYS5hciIsImlhdCI6MTczMjgyNzk4NywiZXhwIjoxNzMyODMxNTg3fQ.m0BQTFaAW9A87XbmC8VBpfGlqrvC0tM8-y371hYXTCA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"maxQuantityPerProduct\": 12,\n  \"maxQuantityPerOrder\": 70\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/rules/quantity",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"rules",
+								"quantity"
+							]
+						},
+						"description": "This endpoint allows for entering a maximum quantity of items per product, and a maximum quantity for total items."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Quantities",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInN1YiI6ImlwYXJrQGZpLnViYS5hciIsImlhdCI6MTczMjgyNzk4NywiZXhwIjoxNzMyODMxNTg3fQ.m0BQTFaAW9A87XbmC8VBpfGlqrvC0tM8-y371hYXTCA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/rules/quantity",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"rules",
+								"quantity"
+							]
+						},
+						"description": "This endpoint allows users to fetch the maximum quantities from the DB."
+					},
+					"response": []
+				}
+			],
+			"description": "### **Introduction**\n\nThe **Rules API** is designed to manage all the dynamic business rules for an ecommerce platform. It provides a flexible way to set up conditions or restrictions, like limiting orders by weight, product type, or any other attribute you can imagine. These rules can be applied either to individual items or the entire order, giving you lots of control.\n\nWith this API, you can easily create, update, fetch, or delete rules. It's designed to fit seamlessly into your workflows, and each rule can be customized with attributes, operators, values, and where it applies (order-level or item-level).\n\n### **Endpoints Overview**\n\nBelow is a summary of the endpoints available in the **Rules API**:\n\n| HTTP Method | Endpoint | Description |\n| --- | --- | --- |\n| `GET` | `/api/rules` | Retrieve all active rules (rules that are not soft deleted). |\n| `POST` | `/api/rules` | Create new rules with attributes, operators, and scope. |\n| `PUT` | `/api/rules` | Update existing rules by specifying their unique ID. |\n| `DELETE` | `/api/rules/{id}` | Perform a soft delete on a rule, marking it inactive. |",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							"// Agregamos el token al header Authorization\r",
+							"const token = pm.environment.get(\"jwt\");\r",
+							"if (token) {\r",
+							"    pm.request.headers.add({\r",
+							"        key: \"Authorization\",\r",
+							"        value: `Bearer ${token}`\r",
+							"    });\r",
+							"    console.log(\"Header Authorization configurado.\");\r",
+							"} else {\r",
+							"    console.error(\"No se encontró un token JWT en el entorno.\");\r",
+							"}\r",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							"// Parseamos la respuesta para obtener el token\r",
+							"const response = pm.response.json();\r",
+							"if (response.token) {\r",
+							"    // Guardamos el JWT como variable de entorno\r",
+							"    pm.environment.set(\"jwt\", response.token);\r",
+							"    console.log(\"Token JWT guardado:\", response.token);\r",
+							"} else {\r",
+							"    console.error(\"No se encontró un token en la respuesta.\");\r",
+							"    pm.environment.unset(\"jwt\"); // Limpia la variable si no hay token\r",
+							"}\r",
+							"\r",
+							"if (!pm.environment.get(\"jwt\")) {\r",
+							"    throw new Error(\"El token JWT no está disponible. Ejecuta el login primero.\");\r",
+							"}\r",
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"\r",
+					"\r",
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:20002"
+		},
+		{
+			"key": "authToken",
+			"value": "{{authToken}}",
+			"type": "default"
+		},
+		{
+			"key": "email",
+			"value": "corqueda@fi.uba.ar",
+			"type": "string"
+		}
+	]
+}

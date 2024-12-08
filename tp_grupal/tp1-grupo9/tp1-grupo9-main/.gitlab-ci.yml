@@ -1,0 +1,26 @@
+variables:
+  MAVEN_OPTS: >-
+    -Dhttps.protocols=TLSv1.2
+    -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository
+    -Dorg.slf4j.simpleLogger.showDateTime=true
+
+  MAVEN_CLI_OPTS: >-
+    --batch-mode
+    --errors
+    --fail-at-end
+    --show-version
+    --no-transfer-progress
+    -DinstallAtEnd=true
+    -DdeployAtEnd=true
+
+image: maven:3-openjdk-17
+
+cache:
+  paths:
+    - .m2/repository
+
+verify:
+  stage: test
+  script:
+    - cd backend
+    - 'mvn $MAVEN_CLI_OPTS verify'
